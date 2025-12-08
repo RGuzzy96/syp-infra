@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: syp-main-frontend
+  labels:
+    app: syp-main-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: syp-main-frontend
+  template:
+    metadata:
+      labels:
+        app: syp-main-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/rguzzy96/syp-main-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+      imagePullSecrets:
+        - name: ghcr-login
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: syp-main-frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: syp-main-frontend
+  ports:
+    - port: 3000
+      targetPort: 3000
+---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: syp-main-frontend
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+# spec:
+#   rules:
+#     - host: yourdomain.com
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: syp-main-frontend
+#                 port:
+#                   number: 3000
+#   tls:
+#     - hosts:
+#         - yourdomain.com
+#       secretName: yourdomain-tls
