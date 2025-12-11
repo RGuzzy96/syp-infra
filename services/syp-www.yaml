@@ -43,7 +43,7 @@ spec:
 #     kubernetes.io/ingress.class: nginx
 # spec:
 #   rules:
-#     - host: yourdomain.com
+#     - host: ourdomain.com
 #       http:
 #         paths:
 #           - path: /
@@ -55,5 +55,5 @@ spec:
 #                   number: 3000
 #   tls:
 #     - hosts:
-#         - yourdomain.com
-#       secretName: yourdomain-tls
+#         - ourdomain.com
+#       secretName: ourdomain-tls
